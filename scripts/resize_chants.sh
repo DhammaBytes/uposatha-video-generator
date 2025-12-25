@@ -47,6 +47,12 @@ for video_file in "$VIDEO_FOLDER"/*.(mp4|mov|avi|mkv); do
     filename=$(basename "$video_file")
     output_file="${OUTPUT_FOLDER}/${filename%.*}.mp4"
 
+    # Skip if output file already exists
+    if [ -f "$output_file" ]; then
+        echo ">>> Skipping (already exists): $output_file"
+        continue
+    fi
+
     echo "============================================="
     echo ">>> Processing: $video_file"
 
