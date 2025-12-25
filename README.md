@@ -56,6 +56,18 @@ Each generated Uposatha video follows this sequence:
 
 ### Main Generator
 
+Generates complete Uposatha videos by combining all segments.
+
+**What it does:**
+1. Collects audio talks (MP3), photos, and chant videos from their folders
+2. Sorts talks and chants alphabetically; shuffles photos randomly
+3. For each talk, creates a video with the photo as background
+4. Scales and pads all content to 1280x720 resolution
+5. Normalizes audio (converts to AAC, boosts volume 3x for talks)
+6. Concatenates: Intro → Bows → Chant → Bowl → Talk with photo
+7. Rotates to the next chant video every 4 talks
+8. Sets frequent keyframes for smooth playback in all players
+
 ```bash
 ./scripts/uposatha_generator.sh [OPTIONS]
 ```
