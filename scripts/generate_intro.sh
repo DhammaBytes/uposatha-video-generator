@@ -56,7 +56,7 @@ ffmpeg -y \
     -filter_complex "[0:v]scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2[v]" \
     -map "[v]" -map 1:a \
     -c:v libx264 -pix_fmt yuv420p \
-    -g 180 -x264-params "keyint=180:min-keyint=180" \
+    -g 1 \
     -c:a aac -ac 2 -ar 44100 \
     -shortest \
     "$OUTPUT_VIDEO"

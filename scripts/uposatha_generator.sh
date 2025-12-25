@@ -222,7 +222,7 @@ do
     # Scale the photo to fit within 1280x720 and center it, maintaining aspect ratio
     ffmpeg -y -loop 1 -framerate 1 -t "$audio_seconds" -i "$photo_path" -i "$temp_audio" \
         -c:v libx264 -c:a copy -strict experimental -shortest \
-        -g 180 -x264-params "keyint=180:min-keyint=180" \
+        -g 1 \
         -filter:v "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2" \
         "$photo_video"
 
