@@ -90,6 +90,7 @@ mkdir -p "$ORGANIZED_FOLDER"
 # Parse dates and create directories
 video_index=1
 dates_created=()
+current_year=""
 
 while IFS= read -r line; do
     # Skip empty lines, month headers, and "Date" headers
@@ -103,45 +104,60 @@ while IFS= read -r line; do
         continue
     fi
 
-    # Parse date: "Jan 3, 2026 (Saturday) Full Moon" -> "Jan" "3" "2026"
-    # Extract month, day, year using regex
+    # Parse date - two formats:
+    # With year: "Jan 3, 2026 (Saturday) Full Moon"
+    # Without year: "Jan 11 (Sunday)"
     if [[ "$line" =~ ^([A-Za-z]+)[[:space:]]+([0-9]+),?[[:space:]]+([0-9]{4}) ]]; then
+        # Format with year
         month_name="${match[1]}"
         day="${match[2]}"
         year="${match[3]}"
+        current_year="$year"  # Remember year for subsequent dates
+    elif [[ "$line" =~ ^([A-Za-z]+)[[:space:]]+([0-9]+) ]]; then
+        # Format without year - use remembered year
+        month_name="${match[1]}"
+        day="${match[2]}"
+        year="$current_year"
 
-        # Convert month name to number
-        month_num=$(month_to_num "$month_name")
-
-        if [ -z "$month_num" ]; then
-            echo ">>> Skipping (invalid month): $line"
+        if [ -z "$year" ]; then
+            echo ">>> Skipping (no year found yet): $line"
             continue
         fi
-
-        # Pad day with zero if needed
-        day_padded=$(printf "%02d" "$day")
-
-        # Create directory name
-        dir_name="${year}-${month_num}-${day_padded}"
-        dir_path="${ORGANIZED_FOLDER}/${dir_name}"
-
-        # Check if we have a video for this date
-        if [ $video_index -gt ${#videos[@]} ]; then
-            echo ">>> Warning: No more videos available for: $dir_name"
-            continue
-        fi
-
-        video_file="${videos[$video_index]}"
-
-        # Create directory and move video
-        mkdir -p "$dir_path"
-        cp "$video_file" "$dir_path/"
-
-        echo ">>> $dir_name <- $(basename "$video_file")"
-        dates_created+=("$dir_name")
-
-        ((video_index++))
+    else
+        continue
     fi
+
+    # Convert month name to number
+    month_num=$(month_to_num "$month_name")
+
+    if [ -z "$month_num" ]; then
+        echo ">>> Skipping (invalid month): $line"
+        continue
+    fi
+
+    # Pad day with zero if needed
+    day_padded=$(printf "%02d" "$day")
+
+    # Create directory name
+    dir_name="${year}-${month_num}-${day_padded}"
+    dir_path="${ORGANIZED_FOLDER}/${dir_name}"
+
+    # Check if we have a video for this date
+    if [ $video_index -gt ${#videos[@]} ]; then
+        echo ">>> Warning: No more videos available for: $dir_name"
+        continue
+    fi
+
+    video_file="${videos[$video_index]}"
+
+    # Create directory and move video
+    mkdir -p "$dir_path"
+    cp "$video_file" "$dir_path/"
+
+    echo ">>> $dir_name <- $(basename "$video_file")"
+    dates_created+=("$dir_name")
+
+    ((video_index++))
 done < "$DATES_FILE"
 
 echo "============================================="
