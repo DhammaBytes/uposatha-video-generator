@@ -1,5 +1,6 @@
 # Output folders
 _output/
+_organized/
 chants_resized/
 
 # Source media folders (large files, not for version control)
@@ -7,6 +8,9 @@ chants/
 photos/
 talks/
 static/
+
+# Keep dates.txt (not a media file)
+!dates.txt
 
 # Media files (safety net)
 *.mp4

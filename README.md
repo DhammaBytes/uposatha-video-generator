@@ -135,6 +135,25 @@ Resizes chant videos to 1280x720 resolution for compatibility.
 **Input:** `chants/` folder
 **Output:** `chants_resized/` folder
 
+---
+
+### Date Organizer
+
+Organizes generated videos into dated directories based on `dates.txt`.
+
+```bash
+./scripts/organize_by_date.sh
+```
+
+**Behavior:**
+- Parses dates from `dates.txt` (format: "Jan 3, 2026 (Saturday) Full Moon")
+- Creates directories like `2026-01-03`
+- Copies videos from `_output/` into dated directories
+- Skips special days: Ānāpānasati Day, Āsāḷha Pūjā, Visākha Pūjā, Magha Puja
+
+**Input:** `dates.txt`, `_output/*.mp4`
+**Output:** `_organized/YYYY-MM-DD/` directories
+
 ## Technical Details
 
 ### Video Specifications
