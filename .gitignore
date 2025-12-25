@@ -1,0 +1,12 @@
+# Output folders
+_output/
+chants_resized/
+
+# Source media folders (large files, not for version control)
+chants/
+photos/
+talks/
+static/
+
+# macOS
+.DS_Store
