@@ -9,10 +9,10 @@
 #   ./generate_intro.sh [DURATION]
 #
 # Arguments:
-#   DURATION  Video length in seconds (default: 5)
+#   DURATION  Video length in seconds (default: 20)
 #
 # Examples:
-#   ./generate_intro.sh        # Creates 5-second intro
+#   ./generate_intro.sh        # Creates 20-second intro
 #   ./generate_intro.sh 10     # Creates 10-second intro
 #
 # Input:  static/Intro.png
@@ -31,7 +31,7 @@ INPUT_IMAGE="${STATIC_FOLDER}/Intro.png"
 OUTPUT_VIDEO="${STATIC_FOLDER}/Intro.mp4"
 
 # Duration in seconds - can be overridden by command line argument
-DURATION=${1:-5}
+DURATION=${1:-20}
 
 echo "============================================="
 echo "Generating Intro video"

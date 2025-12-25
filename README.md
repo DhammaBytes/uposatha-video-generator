@@ -89,11 +89,11 @@ Creates `Intro.mp4` from a static image with silent audio track.
 **Arguments:**
 | Argument | Description |
 |----------|-------------|
-| `DURATION` | Video length in seconds (default: 5) |
+| `DURATION` | Video length in seconds (default: 20) |
 
 **Examples:**
 ```bash
-./scripts/generate_intro.sh        # Creates 5-second intro
+./scripts/generate_intro.sh        # Creates 20-second intro
 ./scripts/generate_intro.sh 10     # Creates 10-second intro
 ```
 
