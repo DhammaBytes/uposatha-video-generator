@@ -8,5 +8,35 @@ photos/
 talks/
 static/
 
+# Media files (safety net)
+*.mp4
+*.mp3
+*.png
+*.jpg
+*.jpeg
+*.aac
+*.wav
+*.mov
+*.avi
+*.mkv
+
 # macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# FFmpeg / media processing temp files
+*.log
+*.mbtree
+*.temp
+*.tmp
+ffmpeg2pass-*
